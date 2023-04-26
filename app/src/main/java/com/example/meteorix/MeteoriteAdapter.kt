@@ -53,6 +53,10 @@ class MeteoriteAdapter(private val onItemClick: (Meteorite) -> Unit): RecyclerVi
         holder.binding.apply {
             val meteorite = meteorites[position]
             tvMeteoriteName.text = meteorite.name
+
+            holder.itemView.setOnClickListener {
+                onItemClick(meteorite)
+            }
         }
     }
 

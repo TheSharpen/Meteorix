@@ -25,15 +25,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.rvMeteors.adapter = MeteoriteAdapter { meteorite ->
 
-        lifecycleScope.launch {
-//            getData()
-            setupRecyclerView()
+            val bundle = Bundle().apply {
+                putString("meteoriteName", meteorite.name)
+            }
+
+            val fragment = MeteoriteDetailFragment()
+            fragment.arguments = bundle
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit()
         }
 
-
+        lifecycleScope.launch {
+            setupRecyclerView()
+        }
     }
-
 
     private suspend fun setupRecyclerView() = binding.rvMeteors.apply {
         meteoriteAdapter = MeteoriteAdapter { meteorite ->
@@ -51,27 +60,19 @@ class MainActivity : AppCompatActivity() {
         val response = try {
             RetrofitInstance.api.getMeteorites()
         } catch (e: IOException) {
-            Log.d("XLOG", "IOException, please check your internet connection")
             binding.progressBar.isVisible = false
             return@apply
         } catch (e: HttpException) {
-            Log.d("XLOG", "Http Exception, please check your internet connection")
             binding.progressBar.isVisible = false
             return@apply
         }
         if (response.isSuccessful && response.body() != null) {
             binding.progressBar.isVisible = false
             meteoriteAdapter.meteorites = response.body()!!
-            Log.d("XLOG", "Success: ${meteoriteAdapter.meteorites}")
         } else {
             binding.progressBar.isVisible = false
-            Log.e("XLOG", "Response failed")
         }
-        Log.d("XLOG", "Setup RecyclerView ${meteoriteAdapter.meteorites}")
         layoutManager = LinearLayoutManager(this@MainActivity)
         adapter = meteoriteAdapter
     }
-
-
-
 }

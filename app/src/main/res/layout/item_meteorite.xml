@@ -34,8 +34,9 @@
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
-                android:text="@{meteorite.name}"
+                android:text="placeholder"
                 android:textSize="20sp" />
+
 
         </androidx.cardview.widget.CardView>
 
