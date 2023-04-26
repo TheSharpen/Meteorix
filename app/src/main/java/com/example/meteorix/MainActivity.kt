@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meteorix.databinding.ActivityMainBinding
+import com.example.meteorix.databinding.MeteoriteDetailFragmentBinding
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -17,7 +18,19 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var meteoriteAdapter: MeteoriteAdapter
+    private var meteoriteAdapter = MeteoriteAdapter { meteorite ->
+
+        val bundle = Bundle().apply {
+            putString("meteoriteName", meteorite.name)
+        }
+
+        val fragment = MeteoriteDetailFragment()
+        fragment.arguments = bundle
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,13 +66,28 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+//        private fun setupRecyclerView() = binding.rvMeteors.apply {
+//            meteoriteAdapter = MeteoriteAdapter()
+//            adapter = meteoriteAdapter
+//            layoutManager = LinearLayoutManager(this@MainActivity)
+//        }
+
+
     private fun setupRecyclerView() = binding.rvMeteors.apply {
-        meteoriteAdapter = MeteoriteAdapter()
+        meteoriteAdapter = MeteoriteAdapter { meteorite ->
+            val bundle = Bundle().apply {
+                putString("meteoriteName", meteorite.name)
+            }
+
+            val fragment = MeteoriteDetailFragment()
+            fragment.arguments = bundle
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
         adapter = meteoriteAdapter
         layoutManager = LinearLayoutManager(this@MainActivity)
     }
-
-
-
-
 }
