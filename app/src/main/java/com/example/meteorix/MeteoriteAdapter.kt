@@ -56,5 +56,6 @@ class MeteoriteAdapter(private val onItemClick: (Meteorite) -> Unit): RecyclerVi
         }
     }
 
+
     override fun getItemCount() = meteorites.size
 }
