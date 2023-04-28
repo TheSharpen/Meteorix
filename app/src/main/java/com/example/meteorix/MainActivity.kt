@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meteorix.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import retrofit2.Retrofit
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var meteoriteAdapter: MeteoriteAdapter
     private lateinit var searchText: SearchView
+    private var currentQuery: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -69,16 +71,18 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-                   val filteredList = meteoriteAdapter.filter(query)
+                binding.progressBar.isVisible = true
+                lifecycleScope.launch {
+                val filteredList = RetrofitInstance.api.getMeteorites().body()!!.filter { meteorite ->
+                    meteorite.name.contains(query.orEmpty(),ignoreCase = true)
+                }
+                    binding.progressBar.isVisible = false
                     updateRecyclerView(filteredList)
-                Log.d("XLOG","query is: $query")
-                Log.d("XLOG","MA is: ${meteoriteAdapter.meteorites}")
-                Log.d("XLOG","FL is: $filteredList")
+                }
                 return true
             }
         })
         searchText.setOnCloseListener {
-            Log.d("XLOG", "SearchView X button clicked")
             searchText.setQuery("", false )
             val filteredList = meteoriteAdapter.filter("")
             updateRecyclerView(filteredList)

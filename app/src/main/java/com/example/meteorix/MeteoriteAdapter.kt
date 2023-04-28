@@ -32,18 +32,15 @@ class MeteoriteAdapter(private val onItemClick: (Meteorite) -> Unit) :
             differ.submitList(value)
         }
 
-
-    private var meteoritesCopy: List<Meteorite> = meteorites
     private var meteoritesFiltered: List<Meteorite> = meteorites
 
     fun filter(string: String?): List<Meteorite> {
         try {
             if (string == null || string.isEmpty() || string == "") {
-                meteoritesFiltered = meteoritesCopy
+                meteoritesFiltered = meteorites
             } else {
                 val filterPattern = string.trim().lowercase(Locale.ROOT)
-                meteoritesCopy = meteorites
-                meteoritesFiltered = meteoritesCopy.filter {
+                meteoritesFiltered = meteorites.filter {
                     it.name.lowercase(Locale.ROOT).contains(filterPattern)
                 }
             }
