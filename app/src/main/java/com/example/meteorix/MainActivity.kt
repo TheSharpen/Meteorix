@@ -29,21 +29,9 @@ class MainActivity : AppCompatActivity() {
         binding.rvMeteors.adapter = MeteoriteAdapter { meteorite ->
 
             val bundle = Bundle().apply {
-
-                try {
-                    putString("meteoriteName", meteorite.name)
-                    Log.d("XLOG", "meteorite name: ${meteorite.name}")
-
-                    putString("meteoriteReclat", meteorite.reclat.toString())
-                    Log.d("XLOG", "meteorite reclat: ${meteorite.reclat}")
-
-                    putString("meteoriteReclong", meteorite.reclong.toString())
-
-                    Log.d("XLOG", "meteorite reclong: ${meteorite.reclong}")
-                } catch (e: Exception) {
-                    Log.e("XLOG", "Error saving meteorite data: ${e.message}")
-                }
-
+                putString("meteoriteName", meteorite.name)
+                putString("meteoriteReclat", meteorite.reclat.toString())
+                putString("meteoriteReclong", meteorite.reclong.toString())
             }
 
             val fragment = MeteoriteDetailFragment()
@@ -66,16 +54,12 @@ class MainActivity : AppCompatActivity() {
             if (response.isSuccessful && response.body() != null) {
                 binding.progressBar.isVisible = false
                 meteoriteAdapter.meteorites = response.body()!!
-                Log.d("XLOG", "meteorites: ${meteoriteAdapter.meteorites}")
             } else {
                 binding.progressBar.isVisible = false
             }
         }
         setupRecyclerView()
-
-            setupSearchView()
-
-
+        setupSearchView()
     }
 
     private fun setupSearchView() {
@@ -84,42 +68,51 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-//                meteoriteAdapter.filter.filter(newText)
-                meteoriteAdapter.filter(newText)
+            override fun onQueryTextChange(query: String?): Boolean {
+                   val filteredList = meteoriteAdapter.filter(query)
+                    updateRecyclerView(filteredList)
+                Log.d("XLOG","query is: $query")
+                Log.d("XLOG","MA is: ${meteoriteAdapter.meteorites}")
+                Log.d("XLOG","FL is: $filteredList")
                 return true
             }
         })
+        searchText.setOnCloseListener {
+            Log.d("XLOG", "SearchView X button clicked")
+            searchText.setQuery("", false )
+            val filteredList = meteoriteAdapter.filter("")
+            updateRecyclerView(filteredList)
+            true
+        }
     }
 
+    private fun setupRecyclerView() {
+        binding.rvMeteors.apply {
+            meteoriteAdapter = MeteoriteAdapter { meteorite ->
+                val bundle = Bundle().apply {
+                    putString("meteoriteName", meteorite.name)
+                    putString("meteoriteReclong", meteorite.reclong.toString())
+                    putString("meteoriteReclat", meteorite.reclat.toString())
+                    putString("meteoriteFell", meteorite.fall)
+                    putString("meteoriteYear", meteorite.year)
+                    putString("meteoriteMass", meteorite.mass)
+                    putString("meteoriteNametype", meteorite.nametype)
+                }
 
-    private fun setupRecyclerView() = binding.rvMeteors.apply {
-        meteoriteAdapter = MeteoriteAdapter { meteorite ->
-            val bundle = Bundle().apply {
-                putString("meteoriteName", meteorite.name)
-                putString("meteoriteReclong", meteorite.reclong.toString())
-                putString("meteoriteReclat", meteorite.reclat.toString())
-                putString("meteoriteFell", meteorite.fall)
-                putString("meteoriteYear", meteorite.year)
-                putString("meteoriteMass", meteorite.mass)
-                putString("meteoriteNametype", meteorite.nametype)
-
+                val fragment = MeteoriteDetailFragment()
+                fragment.arguments = bundle
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentDetailContainer, fragment).addToBackStack(null).commit()
             }
 
-            val fragment = MeteoriteDetailFragment()
-            fragment.arguments = bundle
-            supportFragmentManager.beginTransaction().replace(R.id.fragmentDetailContainer, fragment)
-                .addToBackStack(null).commit()
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = meteoriteAdapter
         }
-
-
-
-        layoutManager = LinearLayoutManager(this@MainActivity)
-        adapter = meteoriteAdapter
-        Log.d("XLOG", "Meteorites: $meteoriteAdapter")
     }
 
-
+    private fun updateRecyclerView(list: List<Meteorite>) {
+        meteoriteAdapter.meteorites = list
+    }
 
     override fun onBackPressed() {
 
@@ -134,7 +127,5 @@ class MainActivity : AppCompatActivity() {
         } else {
             supportFragmentManager.popBackStack()
         }
-
-
     }
 }

@@ -1,5 +1,6 @@
 package com.example.meteorix
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,18 +32,28 @@ class MeteoriteAdapter(private val onItemClick: (Meteorite) -> Unit) :
             differ.submitList(value)
         }
 
+
+    private var meteoritesCopy: List<Meteorite> = meteorites
     private var meteoritesFiltered: List<Meteorite> = meteorites
 
-    fun filter(s: String?) {
-        if (s == null || s.isEmpty()) {
-            meteoritesFiltered = meteorites
-        } else {
-            val filterPattern = s.trim().toLowerCase(Locale.ROOT)
-            meteoritesFiltered = meteorites.filter {
-                it.name.toLowerCase(Locale.ROOT).contains(filterPattern)
+    fun filter(string: String?): List<Meteorite> {
+        try {
+            if (string == null || string.isEmpty() || string == "") {
+                meteoritesFiltered = meteoritesCopy
+            } else {
+                val filterPattern = string.trim().lowercase(Locale.ROOT)
+                meteoritesCopy = meteorites
+                meteoritesFiltered = meteoritesCopy.filter {
+                    it.name.lowercase(Locale.ROOT).contains(filterPattern)
+                }
             }
+        } catch (e: Exception) {
+            Log.d("XLOG", "exception ${e.message}")
+            return emptyList()
         }
+
         notifyDataSetChanged()
+        return meteoritesFiltered
     }
 
     inner class MeteoriteViewHolder(val binding: ItemMeteoriteBinding) :
@@ -69,7 +80,6 @@ class MeteoriteAdapter(private val onItemClick: (Meteorite) -> Unit) :
         val meteorite = if (meteorites.isEmpty()) null else meteorites[position]
         if (meteorite != null) {
             holder.binding.apply {
-//            val meteorite = meteoritesFiltered[position]
                 tvMeteoriteName.text = meteorite.name
                 holder.itemView.setOnClickListener {
                     onItemClick.invoke(meteorite)
