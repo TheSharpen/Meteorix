@@ -9,5 +9,5 @@ data class Meteorite(
     val fall: String,
     val year: String,
     val reclat: String,
-    val reclong: String
+    val reclong: String,
 )

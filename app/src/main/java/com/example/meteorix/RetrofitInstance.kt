@@ -6,10 +6,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitInstance {
 
     val api: MeteoriteApi by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://data.nasa.gov/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        Retrofit.Builder().baseUrl("https://data.nasa.gov/")
+            .addConverterFactory(GsonConverterFactory.create()).build()
             .create(MeteoriteApi::class.java)
     }
 }
