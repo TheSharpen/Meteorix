@@ -2,6 +2,7 @@ package com.example.meteorix
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var meteoriteAdapter: MeteoriteAdapter
+    private lateinit var searchText: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        searchText = binding.svSearchText
         binding.rvMeteors.adapter = MeteoriteAdapter { meteorite ->
 
             val bundle = Bundle().apply {
@@ -68,10 +71,25 @@ class MainActivity : AppCompatActivity() {
                 binding.progressBar.isVisible = false
             }
         }
-
-
         setupRecyclerView()
 
+            setupSearchView()
+
+
+    }
+
+    private fun setupSearchView() {
+        searchText.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+//                meteoriteAdapter.filter.filter(newText)
+                meteoriteAdapter.filter(newText)
+                return true
+            }
+        })
     }
 
 
@@ -90,7 +108,7 @@ class MainActivity : AppCompatActivity() {
 
             val fragment = MeteoriteDetailFragment()
             fragment.arguments = bundle
-            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment)
+            supportFragmentManager.beginTransaction().replace(R.id.fragmentDetailContainer, fragment)
                 .addToBackStack(null).commit()
         }
 
@@ -100,6 +118,8 @@ class MainActivity : AppCompatActivity() {
         adapter = meteoriteAdapter
         Log.d("XLOG", "Meteorites: $meteoriteAdapter")
     }
+
+
 
     override fun onBackPressed() {
 
