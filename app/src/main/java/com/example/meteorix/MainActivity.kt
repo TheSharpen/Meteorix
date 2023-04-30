@@ -38,7 +38,8 @@ class MainActivity : AppCompatActivity() {
 
             val fragment = MeteoriteDetailFragment()
             fragment.arguments = bundle
-            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
                 .addToBackStack(null).commit()
         }
 
@@ -105,6 +106,7 @@ class MainActivity : AppCompatActivity() {
 
                 val fragment = MeteoriteDetailFragment()
                 fragment.arguments = bundle
+                binding.svSearchText.clearFocus()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragmentDetailContainer, fragment).addToBackStack(null).commit()
             }

@@ -7,20 +7,15 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <SearchView
-        android:id="@+id/svSearchText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search meteorites"
-        android:layout_margin="16dp"
-        android:padding="8dp"/>
+
 
     <FrameLayout
         android:id="@+id/fragmentDetailContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
+
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -42,6 +37,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="60dp"/>
+
+        <SearchView
+            android:id="@+id/svSearchText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search meteorites"
+            android:layout_margin="16dp"
+            android:padding="8dp"/>
 
     </FrameLayout>
 

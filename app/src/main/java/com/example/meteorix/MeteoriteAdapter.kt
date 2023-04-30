@@ -1,9 +1,13 @@
 package com.example.meteorix
 
+import android.app.Activity
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.view.inputmethod.InputMethodManager.HIDE_IMPLICIT_ONLY
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -59,10 +63,13 @@ class MeteoriteAdapter(private val onItemClick: (Meteorite) -> Unit) :
             itemView.setOnClickListener(this)
         }
 
+
         override fun onClick(v: View?) {
             val meteorite = meteorites[adapterPosition]
             onItemClick(meteorite)
         }
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MeteoriteViewHolder {
@@ -85,5 +92,8 @@ class MeteoriteAdapter(private val onItemClick: (Meteorite) -> Unit) :
         }
     }
 
+
     override fun getItemCount() = meteorites.size
 }
+
+
