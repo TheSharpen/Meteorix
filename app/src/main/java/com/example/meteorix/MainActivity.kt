@@ -1,10 +1,14 @@
 package com.example.meteorix
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +17,9 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import java.io.IOException
+import android.graphics.PorterDuff
+import android.widget.ImageView
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,20 +35,40 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         searchText = binding.svSearchText
-        binding.rvMeteors.adapter = MeteoriteAdapter { meteorite ->
 
-            val bundle = Bundle().apply {
-                putString("meteoriteName", meteorite.name)
-                putString("meteoriteReclat", meteorite.reclat.toString())
-                putString("meteoriteReclong", meteorite.reclong.toString())
-            }
+//        val searchEditText = searchText.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+//        searchEditText?.let {
+//            it.setTextColor(ContextCompat.getColor(this, R.color.white))
+//            it.setHintTextColor(ContextCompat.getColor(this, R.color.white))
+//            searchText.findViewById<EditText>(androidx.appcompat.R.id.search_src_text).setTextColor(ContextCompat.getColor(this, R.color.white))
+//            searchText.findViewById<EditText>(androidx.appcompat.R.id.search_src_text).setHintTextColor(ContextCompat.getColor(this, R.color.white))
+//
+//        }
 
-            val fragment = MeteoriteDetailFragment()
-            fragment.arguments = bundle
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, fragment)
-                .addToBackStack(null).commit()
-        }
+//        val searchHintIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
+//        searchHintIcon.setColorFilter(ContextCompat.getColor(this, R.color.white), PorterDuff.Mode.SRC_IN)
+//
+//        val closeIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+//        closeIcon.setColorFilter(ContextCompat.getColor(this, R.color.white), PorterDuff.Mode.SRC_IN)
+//
+//        val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_button)
+//        searchIcon.setColorFilter(ContextCompat.getColor(this, R.color.white), PorterDuff.Mode.SRC_IN)
+
+
+//        binding.rvMeteors.adapter = MeteoriteAdapter { meteorite ->
+//
+//            val bundle = Bundle().apply {
+//                putString("meteoriteName", meteorite.name)
+//                putString("meteoriteReclat", meteorite.reclat.toString())
+//                putString("meteoriteReclong", meteorite.reclong.toString())
+//            }
+//
+//            val fragment = MeteoriteDetailFragment()
+//            fragment.arguments = bundle
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragmentContainer, fragment)
+//                .addToBackStack(null).commit()
+//        }
 
         lifecycleScope.launch {
             binding.progressBar.isVisible = true
@@ -63,6 +90,8 @@ class MainActivity : AppCompatActivity() {
         }
         setupRecyclerView()
         setupSearchView()
+
+
     }
 
     private fun setupSearchView() {

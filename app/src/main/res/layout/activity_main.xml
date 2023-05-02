@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/darkBlue"
     tools:context=".MainActivity">
 
 
@@ -36,16 +37,19 @@
             android:id="@+id/rvMeteors"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="60dp"/>
+            android:paddingTop="80dp"/>
 
         <SearchView
             android:id="@+id/svSearchText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
             android:queryHint="Search meteorites"
             android:layout_margin="16dp"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:iconifiedByDefault="false"
+            android:theme="@style/CustomSearchView"
+            android:textColor="@color/white"
+            />
 
     </FrameLayout>
 

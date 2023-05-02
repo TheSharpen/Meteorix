@@ -39,7 +39,6 @@ class MeteoriteAdapter(private val onItemClick: (Meteorite) -> Unit) :
     private var meteoritesFiltered: List<Meteorite> = meteorites
 
     fun filter(string: String?): List<Meteorite> {
-        try {
             if (string == null || string.isEmpty() || string == "") {
                 meteoritesFiltered = meteorites
             } else {
@@ -48,11 +47,6 @@ class MeteoriteAdapter(private val onItemClick: (Meteorite) -> Unit) :
                     it.name.lowercase(Locale.ROOT).contains(filterPattern)
                 }
             }
-        } catch (e: Exception) {
-            Log.d("XLOG", "exception ${e.message}")
-            return emptyList()
-        }
-
         notifyDataSetChanged()
         return meteoritesFiltered
     }

@@ -54,13 +54,15 @@ class MeteoriteDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val meteoriteName = arguments?.getString("meteoriteName")
-        val meteoriteFell = arguments?.getString("meteoriteFell")
-        val meteoriteYear = arguments?.getString("meteoriteYear")
-        val meteoriteMass = arguments?.getString("meteoriteMass")
-        val meteoriteNametype = arguments?.getString("meteoriteNametype")
+        val meteoriteName = arguments?.getString("meteoriteName") ?: "Unknown"
+        val meteoriteFell = arguments?.getString("meteoriteFell") ?: "Unknown"
+        val meteoriteYear = arguments?.getString("meteoriteYear") ?: "Unknown"
+        val meteoriteMass = arguments?.getString("meteoriteMass")!!.toDoubleOrNull()
+        val roundedMeteoriteMass = if (meteoriteMass != null) "%.2f".format(meteoriteMass) else ""
+        val meteoriteNametype = arguments?.getString("meteoriteNametype") ?: "Unknown"
 
         binding.tvMeteoriteName.text = meteoriteName
+
         binding.tvMeteoriteFell.text = "Fell/Found: $meteoriteFell"
 
         if (binding.tvMeteoriteYear != null) {
@@ -69,7 +71,8 @@ class MeteoriteDetailFragment : Fragment() {
             binding.tvMeteoriteYear.text = "Discovered: Unknown"
         }
 
-        binding.tvMeteoriteMass.text = "Weight (g): $meteoriteMass"
+        binding.tvMeteoriteMass.text = "Weight (g): ${roundedMeteoriteMass.toString()}"
+
         binding.tvMeteoriteOfficial.text = "Record type: $meteoriteNametype"
 
 
