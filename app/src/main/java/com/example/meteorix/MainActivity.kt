@@ -19,6 +19,8 @@ import retrofit2.Retrofit
 import java.io.IOException
 import android.graphics.PorterDuff
 import android.widget.ImageView
+import java.util.Locale
+import java.text.Normalizer
 
 
 class MainActivity : AppCompatActivity() {
@@ -103,17 +105,26 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(query: String?): Boolean {
                 binding.progressBar.isVisible = true
                 lifecycleScope.launch {
-                val filteredList = RetrofitInstance.api.getMeteorites().body()!!.filter { meteorite ->
-                    meteorite.name.contains(query.orEmpty(),ignoreCase = true)
-                }
+                    val filteredList =
+                        RetrofitInstance.api.getMeteorites().body()!!.filter { meteorite ->
+                                val name = Normalizer.normalize(meteorite.name, Normalizer.Form.NFD)
+                                    .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
+                                    .lowercase(Locale.getDefault())
+                                val queryNormalized =
+                                    Normalizer.normalize(query.orEmpty(), Normalizer.Form.NFD)
+                                        .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
+                                        .lowercase(Locale.getDefault())
+                                name.contains(queryNormalized)
+                            }
                     binding.progressBar.isVisible = false
                     updateRecyclerView(filteredList)
                 }
                 return true
             }
+
         })
         searchText.setOnCloseListener {
-            searchText.setQuery("", false )
+            searchText.setQuery("", false)
             val filteredList = meteoriteAdapter.filter("")
             updateRecyclerView(filteredList)
             true
