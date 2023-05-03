@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/meteorites"
+        android:src="@drawable/meteorite_u1"
         android:contentDescription="meteorite image"/>
 
 </RelativeLayout>

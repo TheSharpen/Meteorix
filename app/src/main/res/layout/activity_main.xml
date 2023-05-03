@@ -5,10 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/darkBlue"
+    android:background="?attr/colorPrimary"
     tools:context=".MainActivity">
-
-
 
     <FrameLayout
         android:id="@+id/fragmentDetailContainer"
@@ -17,14 +15,6 @@
         android:layout_weight="1">
 
 
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:visibility="gone"/>
 
         <FrameLayout
             android:id="@+id/fragmentContainer"
@@ -39,6 +29,15 @@
             android:layout_height="match_parent"
             android:paddingTop="80dp"/>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:indeterminateTint="@color/orange"
+            android:visibility="gone"/>
+
         <SearchView
             android:id="@+id/svSearchText"
             android:layout_width="match_parent"
@@ -48,7 +47,6 @@
             android:padding="8dp"
             android:iconifiedByDefault="false"
             android:theme="@style/CustomSearchView"
-            android:textColor="@color/white"
             />
 
     </FrameLayout>

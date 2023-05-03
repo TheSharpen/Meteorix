@@ -38,40 +38,6 @@ class MainActivity : AppCompatActivity() {
 
         searchText = binding.svSearchText
 
-//        val searchEditText = searchText.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-//        searchEditText?.let {
-//            it.setTextColor(ContextCompat.getColor(this, R.color.white))
-//            it.setHintTextColor(ContextCompat.getColor(this, R.color.white))
-//            searchText.findViewById<EditText>(androidx.appcompat.R.id.search_src_text).setTextColor(ContextCompat.getColor(this, R.color.white))
-//            searchText.findViewById<EditText>(androidx.appcompat.R.id.search_src_text).setHintTextColor(ContextCompat.getColor(this, R.color.white))
-//
-//        }
-
-//        val searchHintIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
-//        searchHintIcon.setColorFilter(ContextCompat.getColor(this, R.color.white), PorterDuff.Mode.SRC_IN)
-//
-//        val closeIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
-//        closeIcon.setColorFilter(ContextCompat.getColor(this, R.color.white), PorterDuff.Mode.SRC_IN)
-//
-//        val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_button)
-//        searchIcon.setColorFilter(ContextCompat.getColor(this, R.color.white), PorterDuff.Mode.SRC_IN)
-
-
-//        binding.rvMeteors.adapter = MeteoriteAdapter { meteorite ->
-//
-//            val bundle = Bundle().apply {
-//                putString("meteoriteName", meteorite.name)
-//                putString("meteoriteReclat", meteorite.reclat.toString())
-//                putString("meteoriteReclong", meteorite.reclong.toString())
-//            }
-//
-//            val fragment = MeteoriteDetailFragment()
-//            fragment.arguments = bundle
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.fragmentContainer, fragment)
-//                .addToBackStack(null).commit()
-//        }
-
         lifecycleScope.launch {
             binding.progressBar.isVisible = true
             val response = try {

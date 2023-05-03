@@ -57,15 +57,16 @@ class MeteoriteDetailFragment : Fragment() {
         val meteoriteName = arguments?.getString("meteoriteName") ?: "Unknown"
         val meteoriteFell = arguments?.getString("meteoriteFell") ?: "Unknown"
         val meteoriteYear = arguments?.getString("meteoriteYear") ?: "Unknown"
-        val meteoriteMass = arguments?.getString("meteoriteMass")!!.toDoubleOrNull()
-        val roundedMeteoriteMass = if (meteoriteMass != null) "%.2f".format(meteoriteMass) else ""
+        val meteoriteMass = arguments?.getString("meteoriteMass")?.toDoubleOrNull() ?: "Unknown"
         val meteoriteNametype = arguments?.getString("meteoriteNametype") ?: "Unknown"
+        val roundedMeteoriteMass = if (meteoriteMass is Double) "%.2f".format(meteoriteMass) else "Unknown"
+
 
         binding.tvMeteoriteName.text = meteoriteName
 
         binding.tvMeteoriteFell.text = "Fell/Found: $meteoriteFell"
 
-        if (binding.tvMeteoriteYear != null) {
+        if (binding.tvMeteoriteYear.text != "Unknown") {
             binding.tvMeteoriteYear.text = "Discovered: ${meteoriteYear?.substring(0, 4)}"
         } else {
             binding.tvMeteoriteYear.text = "Discovered: Unknown"
