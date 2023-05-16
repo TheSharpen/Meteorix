@@ -1,26 +1,24 @@
 package com.example.meteorix
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.app.UiModeManager
+import android.content.Context
+import android.content.res.Configuration
+import android.database.ContentObserver
 import android.os.Bundle
 import android.util.Log
-import android.widget.EditText
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meteorix.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import retrofit2.Retrofit
 import java.io.IOException
-import android.graphics.PorterDuff
-import android.widget.ImageView
-import java.util.Locale
 import java.text.Normalizer
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,8 +29,13 @@ class MainActivity : AppCompatActivity() {
     private var currentQuery: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        setAppTheme()
+
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -62,6 +65,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        setAppTheme()
+        recreate()
+    }
+
+    private fun setAppTheme() {
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        when (currentNightMode) {
+            Configuration.UI_MODE_NIGHT_NO -> setTheme(R.style.AppThemeLight)
+            Configuration.UI_MODE_NIGHT_YES -> setTheme(R.style.AppThemeDark)
+        }
+    }
+
+
     private fun setupSearchView() {
         searchText.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -73,15 +91,15 @@ class MainActivity : AppCompatActivity() {
                 lifecycleScope.launch {
                     val filteredList =
                         RetrofitInstance.api.getMeteorites().body()!!.filter { meteorite ->
-                                val name = Normalizer.normalize(meteorite.name, Normalizer.Form.NFD)
+                            val name = Normalizer.normalize(meteorite.name, Normalizer.Form.NFD)
+                                .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
+                                .lowercase(Locale.getDefault())
+                            val queryNormalized =
+                                Normalizer.normalize(query.orEmpty(), Normalizer.Form.NFD)
                                     .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
                                     .lowercase(Locale.getDefault())
-                                val queryNormalized =
-                                    Normalizer.normalize(query.orEmpty(), Normalizer.Form.NFD)
-                                        .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
-                                        .lowercase(Locale.getDefault())
-                                name.contains(queryNormalized)
-                            }
+                            name.contains(queryNormalized)
+                        }
                     binding.progressBar.isVisible = false
                     updateRecyclerView(filteredList)
                 }

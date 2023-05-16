@@ -46,9 +46,10 @@
             android:layout_margin="16dp"
             android:padding="8dp"
             android:iconifiedByDefault="false"
-            android:theme="@style/CustomSearchView"
+
             />
 
     </FrameLayout>
 
 </LinearLayout>
+
