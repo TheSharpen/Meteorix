@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimaryVariant"
+    android:background="?attr/colorTertiaryContainer"
     android:clickable="true"
     android:focusable="true">
 
@@ -20,71 +20,128 @@
         android:contentDescription="map of meteorite landing location"
         />
 
-    <TextView
-        android:id="@+id/tvMeteoriteName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Meteorite Name"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textColor="?attr/colorOnPrimary"
-        app:layout_constraintTop_toBottomOf="@id/mvMeteoriteLocation"
+        <TextView
+            android:id="@+id/tvMeteoriteName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meteorite Name"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorTertiary"
+            app:layout_constraintTop_toBottomOf="@id/mvMeteoriteLocation"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"/>
+
+
+    <ImageView
+        android:id="@+id/ivIconFell"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="icon for meteorite fell or found"
+        android:src="@drawable/ic_fellorfound"
+        app:tint="?attr/colorTertiary"
+        android:backgroundTint="?attr/colorTertiary"
+        android:foregroundTint="?attr/colorTertiary"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvMeteoriteName" />
 
     <TextView
         android:id="@+id/tvMeteoriteFell"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="Meteorite Fell"
+        android:textColor="?attr/colorTertiary"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/lightGray"
-        app:layout_constraintTop_toBottomOf="@+id/tvMeteoriteName"
+        app:layout_constraintBottom_toBottomOf="@+id/ivIconFell"
+        app:layout_constraintStart_toEndOf="@+id/ivIconFell"
+        app:layout_constraintTop_toTopOf="@+id/ivIconFell" />
+
+
+    <ImageView
+        android:id="@+id/ivIconYear"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="icon for meteorite year of falling"
+        android:src="@drawable/ic_year"
+        app:tint="?attr/colorTertiary"
+        android:backgroundTint="?attr/colorTertiary"
+        android:foregroundTint="?attr/colorTertiary"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvMeteoriteFell" />
 
     <TextView
         android:id="@+id/tvMeteoriteYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="Meteorite Year"
+        android:textColor="?attr/colorTertiary"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/lightGray"
-        app:layout_constraintTop_toBottomOf="@+id/tvMeteoriteFell"
+        app:layout_constraintBottom_toBottomOf="@+id/ivIconYear"
+        app:layout_constraintStart_toEndOf="@+id/ivIconYear"
+        app:layout_constraintTop_toTopOf="@+id/ivIconYear" />
+
+    <ImageView
+        android:id="@+id/ivIconWeight"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="icon for meteorite weight"
+        android:src="@drawable/ic_weight"
+        app:tint="?attr/colorTertiary"
+        android:backgroundTint="?attr/colorTertiary"
+        android:foregroundTint="?attr/colorTertiary"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvMeteoriteYear" />
 
     <TextView
         android:id="@+id/tvMeteoriteMass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="Meteorite Mass"
+        android:textColor="?attr/colorTertiary"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/lightGray"
-        app:layout_constraintTop_toBottomOf="@+id/tvMeteoriteYear"
+        app:layout_constraintBottom_toBottomOf="@+id/ivIconWeight"
+        app:layout_constraintStart_toEndOf="@+id/ivIconWeight"
+        app:layout_constraintTop_toTopOf="@+id/ivIconWeight" />
+
+    <ImageView
+        android:id="@+id/ivIconOfficial"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="icon for meteorite name valid or temporary"
+        android:src="@drawable/ic_validortemp"
+        app:tint="?attr/colorTertiary"
+        android:backgroundTint="?attr/colorTertiary"
+        android:foregroundTint="?attr/colorTertiary"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvMeteoriteMass" />
 
     <TextView
         android:id="@+id/tvMeteoriteOfficial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="placeholder"
+        android:layout_marginStart="8dp"
+        android:text="Meteorite Official/Temp"
+        android:textColor="?attr/colorTertiary"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/lightGray"
-        app:layout_constraintTop_toBottomOf="@+id/tvMeteoriteMass"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"/>
-
+        app:layout_constraintBottom_toBottomOf="@+id/ivIconOfficial"
+        app:layout_constraintStart_toEndOf="@+id/ivIconOfficial"
+        app:layout_constraintTop_toTopOf="@+id/ivIconOfficial" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

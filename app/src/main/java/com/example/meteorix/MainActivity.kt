@@ -155,7 +155,10 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton("No", null).show()
 
         } else {
-            supportFragmentManager.popBackStack()
+            for (i in count downTo 0) {
+                supportFragmentManager.popBackStack()
+            }
+
         }
     }
 }

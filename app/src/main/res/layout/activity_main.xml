@@ -27,7 +27,7 @@
             android:id="@+id/rvMeteors"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="80dp"/>
+            android:paddingTop="125dp"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -38,16 +38,31 @@
             android:indeterminateTint="@color/orange"
             android:visibility="gone"/>
 
-        <SearchView
-            android:id="@+id/svSearchText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:queryHint="Search meteorites"
-            android:layout_margin="16dp"
-            android:padding="8dp"
-            android:iconifiedByDefault="false"
+            android:orientation="vertical">
 
-            />
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Discover"
+                android:textSize="40sp"
+                android:fontFamily="sans-serif-black"
+                android:paddingTop="16dp"
+                android:paddingStart="16dp"
+                android:textColor="@color/orange"/>
+
+            <SearchView
+                android:id="@+id/svSearchText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:queryHint="Search meteorites"
+                android:padding="8dp"
+                android:iconifiedByDefault="false" />
+
+        </LinearLayout>
 
     </FrameLayout>
 
