@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -61,5 +63,13 @@ dependencies {
     // GoogleMaps dependencies
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
+    // Dagger Hilt DI
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
 
+
+}
+
+kapt {
+    correctErrorTypes true
 }
