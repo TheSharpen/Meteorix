@@ -1,31 +1,32 @@
 package com.example.meteorix
 
-import android.app.UiModeManager
-import android.content.Context
+
 import android.content.res.Configuration
-import android.database.ContentObserver
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meteorix.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 import java.text.Normalizer
 import java.util.*
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var meteoriteApi: MeteoriteApi
     private lateinit var binding: ActivityMainBinding
     private lateinit var meteoriteAdapter: MeteoriteAdapter
     private lateinit var searchText: SearchView
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             binding.progressBar.isVisible = true
             val response = try {
-                RetrofitInstance.api.getMeteorites()
+                meteoriteApi.getMeteorites()
             } catch (e: IOException) {
                 binding.progressBar.isVisible = false
                 return@launch
@@ -102,7 +103,8 @@ class MainActivity : AppCompatActivity() {
                 binding.progressBar.isVisible = true
                 lifecycleScope.launch {
                     val filteredList =
-                        RetrofitInstance.api.getMeteorites().body()!!.filter { meteorite ->
+                            meteoriteApi.getMeteorites().body()!!.filter { meteorite ->
+
                             val name = Normalizer.normalize(meteorite.name, Normalizer.Form.NFD)
                                 .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
                                 .lowercase(Locale.getDefault())
