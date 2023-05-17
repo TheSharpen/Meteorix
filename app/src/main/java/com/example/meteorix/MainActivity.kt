@@ -4,8 +4,11 @@ import android.app.UiModeManager
 import android.content.Context
 import android.content.res.Configuration
 import android.database.ContentObserver
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Window
+import android.view.WindowManager
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +40,15 @@ class MainActivity : AppCompatActivity() {
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = window
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
+        }
+
         setContentView(binding.root)
 
         searchText = binding.svSearchText

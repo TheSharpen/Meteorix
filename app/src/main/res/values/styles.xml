@@ -3,7 +3,6 @@
 
     <style name="AppThemeLight" parent="Theme.Meteorix.Light">
         ...
-        <item name="android:windowFullscreen">true</item>
         <!-- Customize common theme attributes here -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">#DADADA</item>
@@ -17,9 +16,6 @@
 
         <item name="colorTertiary">@color/black</item>
         <item name="colorTertiaryContainer">@color/orange</item>
-
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
         <!-- Navigation bar color (only applicable if navigation bar is present) -->
         <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
@@ -44,7 +40,6 @@
     <style name="AppThemeDark" parent="Theme.Meteorix.Dark">
         ...
         <!-- Customize common theme attributes here -->
-        <item name="android:windowFullscreen">true</item>
 
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/darkGray</item>
@@ -58,9 +53,6 @@
 
         <item name="colorTertiary">@color/orange</item>
         <item name="colorTertiaryContainer">@color/darkGray</item>
-
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
         <!-- Navigation bar color. -->
         <item name="android:navigationBarColor">@color/purple_700</item>

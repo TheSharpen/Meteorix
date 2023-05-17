@@ -27,7 +27,7 @@
             android:id="@+id/rvMeteors"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="125dp"/>
+            android:paddingTop="135dp"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -50,7 +50,7 @@
                 android:text="Discover"
                 android:textSize="40sp"
                 android:fontFamily="sans-serif-black"
-                android:paddingTop="16dp"
+                android:paddingTop="26dp"
                 android:paddingStart="16dp"
                 android:textColor="@color/orange"/>
 
