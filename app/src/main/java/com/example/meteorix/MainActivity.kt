@@ -10,6 +10,7 @@ import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meteorix.databinding.ActivityMainBinding
@@ -27,6 +28,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var meteoriteApi: MeteoriteApi
+
+    private lateinit var viewModel: MainViewModel
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var meteoriteAdapter: MeteoriteAdapter
     private lateinit var searchText: SearchView
@@ -36,9 +40,11 @@ class MainActivity : AppCompatActivity() {
 
         setAppTheme()
 
+
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
 
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
