@@ -4,12 +4,14 @@ package com.example.meteorix
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +23,7 @@ import java.io.IOException
 import java.text.Normalizer
 import java.util.*
 import javax.inject.Inject
+import androidx.lifecycle.Observer
 
 
 @AndroidEntryPoint
@@ -45,6 +48,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        viewModel.meteoriteListLD.observe(this, Observer { newValue ->
+            Log.d("XLOG","meteoriteList being observed: ${newValue.toString()}")
+        })
+        //observer is working, new value shows updated list but if
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
