@@ -8,6 +8,7 @@ import android.os.Looper
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.example.meteorix.ui.main.MainActivity
 
 
 class SplashActivity: AppCompatActivity() {

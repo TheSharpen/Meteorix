@@ -1,10 +1,11 @@
-package com.example.meteorix
+package com.example.meteorix.ui.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.meteorix.Meteorite
+import com.example.meteorix.MeteoriteApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +22,6 @@ class MainViewModel @Inject constructor(private val meteoriteApi: MeteoriteApi):
 
     init {
         fetchMeteorites()
-        Log.d("ZLOG","fetch fun ran")
     }
 
     private fun fetchMeteorites() {

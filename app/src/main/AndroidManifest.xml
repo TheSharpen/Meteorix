@@ -38,7 +38,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:label="Meteorix"
             android:exported="true"
             android:configChanges="uiMode" >
