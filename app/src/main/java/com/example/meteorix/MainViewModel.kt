@@ -1,5 +1,6 @@
 package com.example.meteorix
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,19 +15,24 @@ class MainViewModel @Inject constructor(private val meteoriteApi: MeteoriteApi):
     private val _meteoriteListLD = MutableLiveData<List<Meteorite>>()
     val meteoriteListLD: LiveData<List<Meteorite>> = _meteoriteListLD
 
-    // loading and _loading
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
 
     init {
         fetchMeteorites()
+        Log.d("ZLOG","fetch fun ran")
     }
 
     private fun fetchMeteorites() {
+        _isLoading.value = true
         viewModelScope.launch {
             val response = meteoriteApi.getMeteorites()
             if (response.isSuccessful) {
                 _meteoriteListLD.value = response.body()
+                _isLoading.value = false
             } else {
-                // handle error
+                _isLoading.value = false
             }
         }
     }

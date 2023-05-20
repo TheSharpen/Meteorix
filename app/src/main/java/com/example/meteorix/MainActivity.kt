@@ -40,20 +40,10 @@ class MainActivity : AppCompatActivity() {
     private var currentQuery: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         setAppTheme()
-
-
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
-
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
-        viewModel.meteoriteListLD.observe(this, Observer { newValue ->
-            Log.d("XLOG","meteoriteList being observed: ${newValue.toString()}")
-        })
-        //observer is working, new value shows updated list but if
-
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -65,31 +55,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContentView(binding.root)
-
         searchText = binding.svSearchText
 
-        lifecycleScope.launch {
-            binding.progressBar.isVisible = true
-            val response = try {
-                meteoriteApi.getMeteorites()
-            } catch (e: IOException) {
-                binding.progressBar.isVisible = false
-                return@launch
-            } catch (e: HttpException) {
-                binding.progressBar.isVisible = false
-                return@launch
-            }
-            if (response.isSuccessful && response.body() != null) {
-                binding.progressBar.isVisible = false
-                meteoriteAdapter.meteorites = response.body()!!
-            } else {
-                binding.progressBar.isVisible = false
-            }
-        }
+        viewModel.isLoading.observe(this, Observer { newValue ->
+            binding.progressBar.isVisible = newValue
+        })
+
+        viewModel.meteoriteListLD.observe(this, Observer { newValue ->
+            meteoriteAdapter.meteorites = newValue
+        })
+
         setupRecyclerView()
         setupSearchView()
-
-
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -116,18 +93,17 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(query: String?): Boolean {
                 binding.progressBar.isVisible = true
                 lifecycleScope.launch {
-                    val filteredList =
-                            meteoriteApi.getMeteorites().body()!!.filter { meteorite ->
+                    val filteredList = meteoriteApi.getMeteorites().body()!!.filter { meteorite ->
 
-                            val name = Normalizer.normalize(meteorite.name, Normalizer.Form.NFD)
+                        val name = Normalizer.normalize(meteorite.name, Normalizer.Form.NFD)
+                            .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
+                            .lowercase(Locale.getDefault())
+                        val queryNormalized =
+                            Normalizer.normalize(query.orEmpty(), Normalizer.Form.NFD)
                                 .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
                                 .lowercase(Locale.getDefault())
-                            val queryNormalized =
-                                Normalizer.normalize(query.orEmpty(), Normalizer.Form.NFD)
-                                    .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
-                                    .lowercase(Locale.getDefault())
-                            name.contains(queryNormalized)
-                        }
+                        name.contains(queryNormalized)
+                    }
                     binding.progressBar.isVisible = false
                     updateRecyclerView(filteredList)
                 }
@@ -144,8 +120,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
+
         binding.rvMeteors.apply {
+
             meteoriteAdapter = MeteoriteAdapter { meteorite ->
+
                 val bundle = Bundle().apply {
                     putString("meteoriteName", meteorite.name)
                     putString("meteoriteReclong", meteorite.reclong.toString())
