@@ -8,8 +8,11 @@ import android.os.Looper
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.meteorix.R
 import com.example.meteorix.ui.main.MainActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class SplashActivity: AppCompatActivity() {
@@ -28,10 +31,11 @@ class SplashActivity: AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed({
+        lifecycleScope.launch {
+            delay(2000L)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish()
-        }, 2000)
+        }
+
     }
 }
