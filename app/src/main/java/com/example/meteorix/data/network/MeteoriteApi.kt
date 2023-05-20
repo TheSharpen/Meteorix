@@ -1,5 +1,6 @@
-package com.example.meteorix
+package com.example.meteorix.data.network
 
+import com.example.meteorix.data.model.Meteorite
 import retrofit2.Response
 import retrofit2.http.GET
 

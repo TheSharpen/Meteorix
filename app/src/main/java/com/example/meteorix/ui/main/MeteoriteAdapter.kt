@@ -1,16 +1,12 @@
-package com.example.meteorix
+package com.example.meteorix.ui.main
 
-import android.app.Activity
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.view.inputmethod.InputMethodManager.HIDE_IMPLICIT_ONLY
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.meteorix.data.model.Meteorite
 import com.example.meteorix.databinding.ItemMeteoriteBinding
 import java.util.*
 

@@ -1,5 +1,6 @@
-package com.example.meteorix
+package com.example.meteorix.di
 
+import com.example.meteorix.data.network.MeteoriteApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

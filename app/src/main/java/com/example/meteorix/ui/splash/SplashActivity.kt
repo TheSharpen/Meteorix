@@ -1,4 +1,4 @@
-package com.example.meteorix
+package com.example.meteorix.ui.splash
 
 import android.content.Intent
 import android.os.Build
@@ -8,6 +8,7 @@ import android.os.Looper
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.example.meteorix.R
 import com.example.meteorix.ui.main.MainActivity
 
 

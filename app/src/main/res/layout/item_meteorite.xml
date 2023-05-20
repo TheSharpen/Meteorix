@@ -6,7 +6,7 @@
 
         <variable
             name="meteorite"
-            type="com.example.meteorix.Meteorite" />
+            type="com.example.meteorix.data.model.Meteorite" />
 
     </data>
 

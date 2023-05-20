@@ -1,10 +1,12 @@
 package com.example.meteorix.ui.main
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -18,7 +20,10 @@ import kotlinx.coroutines.launch
 import java.text.Normalizer
 import java.util.*
 import android.widget.SearchView
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.meteorix.*
+import com.example.meteorix.data.model.Meteorite
+import com.example.meteorix.data.network.MeteoriteApi
 import com.example.meteorix.ui.meteoriteDetailFragment.MeteoriteDetailFragment
 import javax.inject.Inject
 
@@ -93,12 +98,6 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
-
-        binding.svSearchText.setOnCloseListener {
-            binding.svSearchText.setQuery("", false)
-            updateRecyclerView(meteoriteAdapter.filter(""))
-            true
-        }
     }
 
     private fun setupRecyclerView() {

@@ -8,7 +8,7 @@
 
 
     <application
-        android:name=".MeteorixApp"
+        android:name=".app.MeteorixApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -28,7 +28,7 @@
             android:value="AIzaSyDM7m8zVbxvkSO1S2WCF--FA5MZv83VPk0"/>
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

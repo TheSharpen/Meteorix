@@ -1,4 +1,4 @@
-package com.example.meteorix
+package com.example.meteorix.data.model
 
 data class Meteorite(
     val id: String,
