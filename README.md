@@ -16,6 +16,10 @@ Meteorix is a mobile application for Android that provides information about met
 - Coroutines: Uses coroutines for asynchronous and non-blocking programming.
 - REST API Integration: Retrieves meteorite details from the NASA API and displays them in the full-screen fragment.
 
+## Screenshots
+
+![App Preview](https://i.imgur.com/x5WoeiB.png)
+
 ## Installation
 
 To install and run Meteorix on your Android device, please follow the steps below:
