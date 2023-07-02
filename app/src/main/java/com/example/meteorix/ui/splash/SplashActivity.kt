@@ -32,7 +32,7 @@ class SplashActivity: AppCompatActivity() {
         supportActionBar?.hide()
 
         lifecycleScope.launch {
-            delay(2000L)
+            delay(2500L)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish()
         }
