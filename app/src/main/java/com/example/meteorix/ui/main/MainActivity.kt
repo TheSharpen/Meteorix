@@ -67,8 +67,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAppTheme() {
-        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        when (currentNightMode) {
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             Configuration.UI_MODE_NIGHT_NO -> setTheme(R.style.AppThemeLight)
             Configuration.UI_MODE_NIGHT_YES -> setTheme(R.style.AppThemeDark)
         }
@@ -146,4 +145,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        setAppTheme()
+        recreate()
+    }
+
+
 }

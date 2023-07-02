@@ -5,12 +5,12 @@
         ...
         <!-- Customize common theme attributes here -->
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#DADADA</item>
-        <item name="colorPrimaryVariant">#C1C1C1</item>
+        <item name="colorPrimary">@color/yellowyLight</item>
+        <item name="colorPrimaryVariant">@color/lightGray200</item>
         <item name="colorOnPrimary">@color/black</item>
 
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#FFFFFF</item>
+        <item name="colorSecondary">@color/white</item>
         <item name="colorSecondaryVariant">@color/white_500</item>
         <item name="colorOnSecondary">@color/black</item>
 
